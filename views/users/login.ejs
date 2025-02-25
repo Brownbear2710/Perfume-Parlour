@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.118.2">
+    <title>Perfume Parlour - Signin</title>
+    <link rel="icon" href="/icons/title-icon.png" type="image/png">
+
+
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/css/new-sign-in.css" rel="stylesheet">
+  </head>
+  <body class="bg-body-tertiary d-flex align-items-center min-vh-100">    
+<!-- <main class="form-signin w-100 m-auto"> -->
+
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom fixed-top bg-dark">
+    <a href="/" class="d-flex align-items-center ms-3 mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+        <svg class="bi me-1" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
+        <span class="fs-3 text-light">Perfume Parlor</span>
+    </a>
+    <div class="mx-auto">
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+        </ul>
+    </div>
+</header>
+
+      <main class="form-signin w-100 m-auto">
+  <form action="/users/login" method="POST">
+
+    <div class="text-center">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+    
+    </div>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+      <label for="floatingInput">Email address</label>
+    </div>
+    <div class="form-floating">
+      <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+      <label for="floatingPassword">Password</label>
+    </div>
+
+    <!-- Checkbox and Forgot Password Link Container -->
+    <div class="d-flex justify-content-between align-items-center my-3">
+    <div class="form-check">
+      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+      <label class="form-check-label" for="flexCheckDefault">Remember me</label>
+      </div>
+      <!-- Forgot Password Button Beside Remember me Checkbox -->
+      <a href="/users/forgot-password" class="btn btn-link">Forgot Password?</a>
+    </div>
+      <!-- <a href="/users/signup" class="btn btn-link ms-0 my-3">Dont have an account?</a> -->
+    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+
+    <div class="text-center mt-3">
+      <a href="/users/signup" class="btn btn-secondary">Don't have an Account?</a>
+    </div>
+    <!-- <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p> -->
+  </form>
+
+</main>
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+</html>

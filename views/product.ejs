@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title><%= productInfo[0].Name %> Details</title>
+    <link rel="icon" href="/icons/title-icon.png" type="image/png">
+
+    <!-- Bootstrap CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #212529; /* Dark background color */
+            color: #fff; /* Light text color */
+        }
+
+        .product-info {
+            margin-top: 50px;
+        }
+
+        .product-info img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .product-info h2 {
+            margin-top: 20px;
+            font-size: 2.5em;
+        }
+
+        .product-info p {
+            font-size: 1.2em;
+        }
+
+        .product-info .btn {
+            margin-top: 20px;
+        }
+
+        .volume-radio {
+            display: inline-block;
+        }
+
+        .radio-label {
+            display: inline-block;
+            margin-right: 15px; /* Adjust the margin as needed */
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <div class="content">
+            <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center ms-3 mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                    <svg class="bi me-1" width="40" height="32"><use xlink:href="#bootstrap" /></svg>
+                    <span class="fs-3">Perfume Parlor</span>
+                </a>
+
+                <div class="mx-auto">
+                    <ul class="nav nav-pills">
+                        <li class="nav-item"><a href="/" class="nav-link active" aria-current="page">Home</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+                        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                    </ul>
+                </div>
+
+                <!-- Search Box -->
+                <form class="col-12 col-lg-auto ms-3 mb-lg-0 me-3" role="search">
+                    <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
+                </form>
+
+                <% if (currentUser === null) { %>
+                <!-- Log in and Sign Up Button -->
+                <div class="text-end">
+                    <a href="/users/login"> <button type="button" class="btn btn-outline-light me-2">Login</button></a>
+                    <a href="/users/signup"> <button type="button" class="btn btn-warning me-3">Sign-up</button></a>
+                </div>
+                <% } else { %>
+
+                <!-- Cart Icon with Badge -->
+                <div class="text-end me-3">
+                    <a href="/cart/view" id="cartIcon" class="d-block link-body-emphasis text-decoration-none"
+                       style="font-size: 1.5rem;">
+                        <i class="bi bi-cart3"></i>
+                        <!-- Display the badge only if there are items in the cart -->
+                        <span id="cartItemCount" class="badge bg-danger"></span>
+                    </a>
+                </div>
+                
+
+                <!-- Profile Picture -->
+                <div class="dropdown text-end me-3">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="data:image;base64, <%= currentUser.image %>" alt="img" width="40"
+                            height="40" class="rounded-circle">
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        <!-- <li><a class="dropdown-item" href="#">New project...</a></li> -->
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><button type="button" class="dropdown-item" id="signOutButton">Sign out</button></li>
+                    </ul>
+                </div>
+
+                 <!-- Cart Dropdown Button -->
+                 <!-- <div class="dropdown text-end me-3">
+                    <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-cart-fill"></i>
+                    </a>
+                    <ul class="dropdown-menu text-small">
+                        Add Cart Items Here
+                        <li><a class="dropdown-item" href="#">Product 1</a></li>
+                        <li><a class="dropdown-item" href="#">Product 2</a></li>
+                        ... Add more cart items dynamically ...
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">View Cart</a></li>
+                    </ul>
+                </div> -->
+                <% } %>
+
+            </header>
+        </div>
+
+        <div class="container product-info">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="data:image;base64, <%= productInfo[0].Thumbnail %>" class="img-fluid rounded"
+                        alt="<%= productInfo[0].Name %>">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mt-3"><%= productInfo[0].Name %></h2>
+                    <p class="lead"><%= productInfo[0].Description %></p>
+                    <p class="fw-bold">Brand: <%= productInfo[0].Brand %></p>
+                    <p class="fw-bold">Volume:   
+                        <span class="volume-radio">
+                            <label class="radio-label">
+                                <input type="radio" name="volume" id="radio3ml" value="3" checked> 3ml
+                            </label>
+                            <label class="radio-label">
+                                <input type="radio" name="volume" id="radio5ml" value="5"> 5ml
+                            </label>
+                        </span>
+                    </p>
+                    
+
+                    <p class="fw-bold">Price: &#2547;<span id="displayedPrice"></span></p>
+                    <!-- <p class="fw-regular">Quantities Left: <%= productInfo[0].Quantity %></p> -->
+
+                    <p class="fw-bold">
+                        <span class="quantity-input">
+                            <label class="input-label">
+                                <button type="button" onclick="decreaseQuantity()">-</button>
+                                <input type="number" id="quantityInput" min="1" value="1">
+                                <button type="button" onclick="increaseQuantity()">+</button>
+                            </label>
+                        </span>
+                    </p>
+
+                    <% if (currentUser === null) { %>
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Add to Cart
+                      </button>  
+                      <% } else { %>                  
+                        <!-- <button type="button" class="btn btn-primary" id="addToCartButton">Add to Cart</button> -->
+                        <button type="button" class="btn btn-primary" onclick="addToCart('<%= productInfo[0].ID %>')">Add to Cart</button>
+                        <% } %>                  
+                        <button type="button" class="btn btn-success">
+                                <a class="dropdown-item" href="/cart/view">Buy Now</a>
+                        </button>
+                    </div>
+            </div>
+        </div>
+
+
+<!-- Login Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header text-center">
+                <h5 class="modal-title w-100" id="loginModalLabel">Login Required</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Add your login form or relevant content here -->
+                <!-- Example form for simplicity -->
+                <p>Please log in or create an account to add products to your cart.</p>
+                <form action="/users/login" method="POST">
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>
+                            <label for="floatingInput">Email address</label>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <div class="form-floating">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+                            <label for="floatingPassword">Password</label>
+                          </div>
+                    </div>
+                    <!-- Add a hidden input field to carry the origin information -->
+                    <input type="hidden" name="origin" id="origin" value="">
+
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <div class="d-flex justify-content-between w-100">
+                    <div>
+                        <p class="mb-0">Don't have an account? <a href="/users/signup" class="link-warning" >Create Account</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Out of Sotck Modal -->
+<div class="modal fade" id="outOfStockModal" tabindex="-1" aria-labelledby="outOfStockModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!-- Bootstrap Icon for Error -->
+                <i class="bi bi-exclamation-triangle-fill text-danger fs-3 me-2"></i>
+                <h5 class="modal-title" id="outOfStockModalLabel">Out of Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="text-danger">Sorry, the product is currently out of stock.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Success Cart Modal -->
+<div class="modal fade" id="successCart" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">
+                      <i class="bi bi-cart-check-fill"></i>
+                    Product Added to Cart
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p class="lead">
+                    Your selected product has been added to the cart successfully!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">Continue Shopping</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+</main>
+
+    <!-- Include jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Bootstrap JS and Popper.js (for dropdowns, modals, etc.) -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+
+    
+
+    <!-- Pass the price information to the external JavaScript file -->
+    <script>
+        // Create a global variable to store price information
+        window.productPrices = {
+            priceOf3ml: '<%= productInfo[0].priceOf3ml %>',
+            priceOf5ml: '<%= productInfo[0].priceOf5ml %>'
+        };
+    </script>
+
+<script src="/js/index/productPage.js"></script>
+<script src="/js/index/signoutRequest.js"></script>
+<!-- <script>
+    // Embedding server-side data into the script tag
+    var productId = '<%= productInfo[0].ID %>';
+</script> -->
+<script src="/js/index/cart.js"></script>
+
+
+</body>
+</html>
